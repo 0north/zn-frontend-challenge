@@ -28,7 +28,14 @@ This application is a mini-simulation of the functionality of the ZeroNorth solu
 The end-goal is to complete the UI that is used to generate a voyage by progressively 
 adding ports, calculate the total distance travled and plot the chosen ports on a map.
 
+1) Use this project as a template to create a new repo in your own Github account
+2) Create a new branch to do your work in
+3) After completing these steps to your satisification, create a pull request and invite the ZeroNorth reviewers to review)
+
+
+
 Specifically, we are looking for:
+
 
 1) Use the following REST api to fetch the available ports.  [https://8u9tblsay0.execute-api.us-east-1.amazonaws.com/default/zn-frontend-challenge-port-service](https://8u9tblsay0.execute-api.us-east-1.amazonaws.com/default/zn-frontend-challenge-port-service)
    The API returns 10 ports at a time and takes one query parameter `offset` which indicates what offset to start from.  The
