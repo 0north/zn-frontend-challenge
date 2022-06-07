@@ -26,11 +26,26 @@ const initialState: VoyageState = {
     ports: []
  }
 
+ export interface AddPortAction {
+    type: 'ADDPORTACTION'
+    port: Port
+  }
+
+export const addPorts = (port: Port): AddPortAction => {
+    return { type: 'ADDPORTACTION', port }
+  }
+
  
  export function voyageReducer(state = initialState, action: AnyAction){
- 
-     return state
+    switch (action.type) {
+        case 'ADDPORTACTION':
+            const currentPorts = state.ports;
+            return { ...state, ports: [...currentPorts,action.port] }
+        default:
+            return {...state}
+    }
  }
+
 
  export function addPort(port: Port){}
  export function removePort(port: Port){}
