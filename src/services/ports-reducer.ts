@@ -9,7 +9,7 @@ export interface Port {
     uncode: string,
     name: string,
     lat: number,
-    lon: number
+    lng: number
 }
 
 interface PortsState {
