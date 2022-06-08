@@ -1,6 +1,7 @@
 .voyage-planner-container{
     display: flex;
     flex-direction: row;
+    margin: 10px;
 }
 
 .voyage-route-container{
@@ -9,21 +10,22 @@
     border-left: 2px solid grey;
     display: flex;
     flex-direction: column;
+    text-align: center;
 }
 #port-select{
     width: 90%;
 }
 .port-locator{
-
+    line-height: 2;
 }
-
 .voyage-listing{
-
+    line-height: 1.5;
 }
 
 .voyage-map-container{
     width: 80%;
     height: 100vh;
+    text-align: center;
 }
 
 #route-map{

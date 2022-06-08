@@ -25,10 +25,10 @@ const initialState: PortsState = {
 }
 export interface SetPortAction {
     type: 'SETPORTACTION'
-    portList: Port
+    portList: Port[]
 }
 
-export const setPorts = (portList: Port): SetPortAction => {
+export const setPorts = (portList: Port[]): SetPortAction => {
     return { type: 'SETPORTACTION', portList }
 }
 

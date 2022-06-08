@@ -11,24 +11,30 @@ interface VoyagePlannerParams {}
 function VoyagePlanner(params: VoyagePlannerParams) {
   const [selectedPort, setSelectedPort] = useState("");
   const [addedPorts, setAddedPorts] = useState<Port[]>([]);
+  const [offset, setOffset] = useState(0);
+  const [fetchData, setFetchData] = useState([]);
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    fetchPorts(0).then((resp: any) => {
-      dispatch(setPorts(resp));
-      setSelectedPort(resp[0].name);
+    fetchPorts(offset).then((resp: any) => {
+      setFetchData(fetchData.concat(resp));
+      dispatch(setPorts(fetchData));
+      setOffset(offset + resp.length);
+      setSelectedPort(store.getState().ports.ports[0].name);
     });
-  }, []);
+  }, [offset]);
 
   const handleChange = (e: any) => {
     setSelectedPort(e.target.value);
   };
 
   const addVoyage = () => {
-    const portTobeAdded = store
-      .getState()
-      .ports.ports.filter((el) => el.name === selectedPort);
+    const portTobeAdded =
+      store.getState().ports.ports &&
+      store
+        .getState()
+        .ports.ports.filter((item: Port) => item.name === selectedPort);
     dispatch(addPorts(portTobeAdded[0]));
     setAddedPorts(store.getState().voyage.ports);
   };
@@ -47,7 +53,7 @@ function VoyagePlanner(params: VoyagePlannerParams) {
                 );
               })}
           </select>
-          <button onClick={addVoyage}>+</button>
+          <button onClick={addVoyage}>Add</button>
         </div>
         <div className="voyage-listing">
           <h2>Voyage</h2>
