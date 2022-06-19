@@ -1,36 +1,36 @@
-.voyage-planner-container{
-    display: flex;
-    flex-direction: row;
+.voyage-planner-container {
+  display: flex;
+  flex-direction: row;
+  margin: 10px;
 }
-
-.voyage-route-container{
-    width: 20%;
-    height: 100vh;
-    border-left: 2px solid grey;
-    display: flex;
-    flex-direction: column;
+.voyage-route-container {
+  width: 20%;
+  height: 100vh;
+  border-left: 2px solid grey;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
 }
-#port-select{
-    width: 90%;
+#port-select {
+  width: 90%;
 }
-.port-locator{
-
+.port-locator {
+  line-height: 2;
 }
-
-.voyage-listing{
-
+.voyage-listing {
+  line-height: 1.5;
+  list-style: none;
 }
-
-.voyage-map-container{
-    width: 80%;
-    height: 100vh;
+.voyage-map-container {
+  width: 80%;
+  height: 100vh;
+  margin-top: 20px;
 }
-
-#route-map{
+#route-map {
   width: 100%;
   height: 90%;
 }
-#map-container{
-    width: 100%;
-    height: 100%;
+#map-container {
+  width: 100%;
+  height: 100%;
 }

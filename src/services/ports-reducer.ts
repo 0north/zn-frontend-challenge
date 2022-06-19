@@ -9,7 +9,7 @@ export interface Port {
     uncode: string,
     name: string,
     lat: number,
-    lon: number
+    lng: number
 }
 
 interface PortsState {
@@ -23,6 +23,16 @@ const initialState: PortsState = {
     offset: 0,
     ports: []
 }
+export interface SetPortAction {
+    type: 'SETPORTACTION'
+    portList: Port[]
+}
+
+export const setPorts = (portList: Port[]): SetPortAction => {
+    return { type: 'SETPORTACTION', portList }
+}
+
+
 
 /**
  * TODO: implement the reducer function to manage the list of ports
@@ -31,9 +41,13 @@ const initialState: PortsState = {
  * @param action 
  * @returns PortsState
  */
-export function portsReducer(state = initialState, action: AnyAction): PortsState{
-
-    return state
+export function portsReducer(state = initialState, action: AnyAction): PortsState {
+    switch (action.type) {
+        case 'SETPORTACTION':
+            return { ...state, ports: state.ports.concat(action.portList) }
+        default:
+            return { ...state }
+    }
 }
 
 /**
@@ -42,7 +56,17 @@ export function portsReducer(state = initialState, action: AnyAction): PortsStat
  * so you may need multiple calls to fetch all the data
  * @param offset: where to start pulling from
  */
-export function fetchPorts(offset: number){}
+export async function fetchPorts(offset: number) {
+    return new Promise((resolve) => {
+        fetch(
+            `https://8u9tblsay0.execute-api.us-east-1.amazonaws.com/default/zn-frontend-challenge-port-service?offset=${offset}`
+        )
+            .then((response) => response.json())
+            .then((json) => {
+                resolve(json.data);
+            });
+    });
+}
 
 
 
