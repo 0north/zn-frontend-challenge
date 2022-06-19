@@ -44,7 +44,7 @@ export const setPorts = (portList: Port[]): SetPortAction => {
 export function portsReducer(state = initialState, action: AnyAction): PortsState {
     switch (action.type) {
         case 'SETPORTACTION':
-            return { ...state, ports: action.portList }
+            return { ...state, ports: state.ports.concat(action.portList) }
         default:
             return { ...state }
     }

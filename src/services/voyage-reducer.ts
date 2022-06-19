@@ -20,34 +20,42 @@ interface VoyageState {
     ports: Port[]
 }
 
- 
+
 const initialState: VoyageState = {
     duration: 0,
     ports: []
- }
+}
 
- export interface AddPortAction {
+export interface AddPortAction {
     type: 'ADDPORTACTION'
     port: Port
-  }
+}
+export interface movePortAction {
+    type: 'MOVEPORTACTION'
+    port: Port
+    newPosition: number
+}
 
 export const addPorts = (port: Port): AddPortAction => {
     return { type: 'ADDPORTACTION', port }
-  }
+}
+export const movePorts = (port: Port, newPosition: number): movePortAction => {
+    return { type: 'MOVEPORTACTION', port, newPosition }
+}
 
- 
- export function voyageReducer(state = initialState, action: AnyAction){
+export function voyageReducer(state = initialState, action: AnyAction) {
     switch (action.type) {
         case 'ADDPORTACTION':
             const currentPorts = state.ports;
-            return { ...state, ports: [...currentPorts,action.port] }
+            return { ...state, ports: [...currentPorts, action.port] }
+        case 'MOVEPORTACTION':
+            return { ...state, ports: state.ports, newPosition: action.port }
         default:
-            return {...state}
+            return { ...state }
     }
- }
+}
 
 
- export function addPort(port: Port){}
- export function removePort(port: Port){}
- export function movePort(port: Port, newPosition: number){}
- 
+export function addPort(port: Port) { }
+export function removePort(port: Port) { }
+export function movePort(port: Port, newPosition: number) { }
