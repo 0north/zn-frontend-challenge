@@ -2,7 +2,6 @@
  * Redux store for the Ports data.  Ports represent a geographical location
  * where a vessel may travel to
  */
-
 import { AnyAction } from "redux"
 
 export interface Port {
@@ -31,9 +30,19 @@ const initialState: PortsState = {
  * @param action 
  * @returns PortsState
  */
-export function portsReducer(state = initialState, action: AnyAction): PortsState{
 
-    return state
+export function portsReducer(state = initialState, action: AnyAction): PortsState{
+    const { type, payload } = action
+    switch(type) {
+        case 'ADD_PORTS':
+            return {
+                count: payload.count,
+                offset: payload.offset + 10,
+                ports: [...state.ports, ...payload.data ]
+            }
+        default:
+            return state
+    }
 }
 
 /**
@@ -42,7 +51,14 @@ export function portsReducer(state = initialState, action: AnyAction): PortsStat
  * so you may need multiple calls to fetch all the data
  * @param offset: where to start pulling from
  */
-export function fetchPorts(offset: number){}
+
+export function fetchPorts(offset: number): string{
+    const url = `https://8u9tblsay0.execute-api.us-east-1.amazonaws.com/default/zn-frontend-challenge-port-service?offset=${offset}`
+    let xmlHttpReq = new XMLHttpRequest();
+    xmlHttpReq.open("GET", url, false); 
+    xmlHttpReq.send(null);
+    return xmlHttpReq.response;
+}
 
 
 
