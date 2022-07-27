@@ -4,7 +4,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import { portsReducer } from './ports-reducer'
 import { voyageReducer } from './voyage-reducer'
 
-const store = configureStore({
+export const store = configureStore({
     reducer: {
         ports: portsReducer,
         voyage: voyageReducer,
