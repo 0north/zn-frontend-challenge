@@ -38,7 +38,7 @@ export function portsReducer(state = initialState, action: AnyAction): PortsStat
             return {
                 count: payload.count,
                 offset: payload.offset + 10,
-                ports: [...state.ports, ...payload.data ]
+                ports: [...state.ports, ...payload.data.filter((port: Port) => !state.ports.includes(port))]
             }
         default:
             return state
@@ -52,13 +52,13 @@ export function portsReducer(state = initialState, action: AnyAction): PortsStat
  * @param offset: where to start pulling from
  */
 
-export function fetchPorts(offset: number): string{
-    const url = `https://8u9tblsay0.execute-api.us-east-1.amazonaws.com/default/zn-frontend-challenge-port-service?offset=${offset}`
-    let xmlHttpReq = new XMLHttpRequest();
-    xmlHttpReq.open("GET", url, false); 
-    xmlHttpReq.send(null);
-    return xmlHttpReq.response;
+export async function fetchPorts(offset: number): Promise<Port> {
+    return fetch(`https://8u9tblsay0.execute-api.us-east-1.amazonaws.com/default/zn-frontend-challenge-port-service?offset=${offset}`, {
+        method: 'GET'
+    })
+    .then(res => res.json())
+    .catch(err => err)
 }
-
+ 
 
 
