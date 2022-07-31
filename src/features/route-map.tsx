@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from "react"
 import { Port } from '../services/ports-reducer'
 import { Loader } from "@googlemaps/js-api-loader"
-
 declare global {
     interface Window {
         initMap: () => void;
@@ -34,6 +33,21 @@ function RouteMap({ports}: RouteMapParams){
                 setTheMap(map);
             })
     }, []);   
+
+    // useEffect(() => {
+    //     const map = theMap
+    //     ports.forEach((port: Port) => {
+    //         new google.maps.Marker({
+    //             position: {
+    //                 lat: +port.lat,
+    //                 lng: +port.lon
+    //             },
+    //             map,
+    //             title: port.name,
+    //         });
+    //     })
+    // }, [ports, theMap])
+
     return (
     <div id="map-container">        
         <div id="route-map"></div>    

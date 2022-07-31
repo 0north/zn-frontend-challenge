@@ -1,6 +1,13 @@
-.App-header{
-  background-color: #8ABEB1
+.App {
+  height: 100vh;
+  overflow: hidden;
 }
-.App-logo{
+
+.App-header {
+  background-color: #8ABEB1;
+  height: 10vh;
+}
+
+.App-logo {
   margin: 5px 0px 5px 10px;
 }

@@ -38,7 +38,7 @@ export function portsReducer(state = initialState, action: AnyAction): PortsStat
             return {
                 count: payload.count,
                 offset: payload.offset + 10,
-                ports: [...state.ports, ...payload.data.filter((port: Port) => !state.ports.includes(port))]
+                ports: [...state.ports, ...payload.data]
             }
         default:
             return state

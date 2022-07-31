@@ -1,50 +1,56 @@
-import React, { useEffect } from 'react'
+import React, { useMemo } from 'react'
 import RouteMap from "./route-map"
 import "./voyage-planner.css"
-import { useAppSelector, useAppDispatch } from '../services/hooks'
-import { fetchPorts } from '../services/ports-reducer';
+import { useAppDispatch } from '../services/hooks'
+import { Port } from '../services/ports-reducer';
+import Typeahead from '../components/typeahead';
 
 interface VoyagePlannerParams{
-
+    ports: Port[],
+    voyage: {
+        ports: Port[],
+        duration: number
+    }
 }
 
-
-function VoyagePlanner(params: VoyagePlannerParams){
+function VoyagePlanner({ports, voyage}: VoyagePlannerParams){
     const dispatch = useAppDispatch()
-    const state = useAppSelector(state => state.ports)
 
-    useEffect(() => {
-        async function fetchPortsData() {
-            if (state.ports.length <= state.count) {
-                const response = fetchPorts(state.offset)
-                const data = JSON.parse(response)
-                data && dispatch({ type: 'ADD_PORTS', payload: data })
-            }
+    const portOptions = useMemo(() => {
+        return ports.map(port => {
+            return {
+                value: port.uncode,
+                name: port.name
         }
-        fetchPortsData()
-    }, [state, dispatch])
+    })
+    }, [ports])
+
+    const selectPort = (value: string) => {
+        const port = ports.find((port: Port) => port.uncode === value)
+        if (port) {
+            dispatch({type: 'ADD_PORT', payload: port})
+        }
+    }
 
     return (
         <div className="voyage-planner-container">
             <div className="voyage-route-container">
                 <h2>Route Planner</h2>
                 <div className="port-locator">
-                    <select id="port-select">
-                    {
-                        state.ports.map((port) => (
-                            <option value={port.uncode}>{port.name}</option>
-                        ))
-                    }
-                    </select>
-                    <button>+</button>
+                    <Typeahead options={portOptions} selectOption={selectPort}/>
                 </div>
                 <div className="voyage-listing">
-                    <h2>Voyage</h2>
+                        <h2>Voyage</h2>
+                        {
+                            voyage.ports.map((port: Port) => 
+                                <p key={port.uncode+port.name}>{port.name}</p>
+                            )
+                        }
                 </div>
             </div>
             <div className="voyage-map-container">
                 <h2>Route Map</h2>
-                <RouteMap ports={[]}/>
+                <RouteMap ports={voyage.ports}/>
             </div>
 
         </div>

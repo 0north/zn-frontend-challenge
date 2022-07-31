@@ -28,8 +28,16 @@ const initialState: VoyageState = {
 
  
  export function voyageReducer(state = initialState, action: AnyAction){
- 
-     return state
+    const { type, payload } = action
+    switch(type) {
+        case 'ADD_PORT':
+            return {
+                ...state,
+                ports: [...state.ports, payload ]
+            }
+        default:
+            return state
+    }
  }
 
  export function addPort(port: Port){}
