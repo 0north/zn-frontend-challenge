@@ -36,7 +36,6 @@ function RouteMap({ports}: RouteMapParams){
 
     useEffect(() => {
         ports.forEach((port: Port, index: number) => {
-            console.log(port, theMap)
             new google.maps.Marker({
                 position: {
                     lat: port.lat,
@@ -46,7 +45,6 @@ function RouteMap({ports}: RouteMapParams){
                 title: port.name,
                 label: `${index + 1}`
             });
-            console.log(port, theMap)
         })
     }, [ports, theMap])
 
