@@ -48,12 +48,7 @@
     padding: 0;
     height: 80%;
     overflow-y: auto;
-    /* visibility: hidden; */
 }
-
-/* .typeahead__results.show {
-    visibility: visible;
-} */
 
 .typeahead__results--item {
     width: 100%;
