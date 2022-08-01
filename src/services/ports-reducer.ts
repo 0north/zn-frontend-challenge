@@ -31,6 +31,20 @@ const initialState: PortsState = {
  * @returns PortsState
  */
 
+export interface AddPortActionPayload {
+    count: number,
+    offset: number,
+    data: Port[]
+}
+export interface AddPortAction {
+    type: 'ADD_PORTS'
+    payload: AddPortActionPayload
+}
+
+export const addPorts = (payload: AddPortActionPayload): AddPortAction => {
+    return { type: 'ADD_PORTS', payload }
+}
+
 export function portsReducer(state = initialState, action: AnyAction): PortsState{
     const { type, payload } = action
     switch(type) {
@@ -52,7 +66,7 @@ export function portsReducer(state = initialState, action: AnyAction): PortsStat
  * @param offset: where to start pulling from
  */
 
-export async function fetchPorts(offset: number): Promise<Port> {
+export async function fetchPorts(offset: number): Promise<AddPortActionPayload> {
     return fetch(`https://8u9tblsay0.execute-api.us-east-1.amazonaws.com/default/zn-frontend-challenge-port-service?offset=${offset}`, {
         method: 'GET'
     })
