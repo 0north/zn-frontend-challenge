@@ -31,6 +31,8 @@ const initialState: PortsState = {
  * @returns PortsState
  */
 
+export const OFFSET_INCREASE = 10
+
 export interface AddPortActionPayload {
     count: number,
     offset: number,
@@ -51,7 +53,7 @@ export function portsReducer(state = initialState, action: AnyAction): PortsStat
         case 'ADD_PORTS':
             return {
                 count: payload.count,
-                offset: payload.offset + 10,
+                offset: payload.offset + OFFSET_INCREASE,
                 ports: [...state.ports, ...payload.data]
             }
         default:
