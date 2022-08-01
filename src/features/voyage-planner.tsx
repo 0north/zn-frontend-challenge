@@ -7,6 +7,8 @@ import Typeahead from '../components/Typeahead/typeahead';
 import { addPort } from '../services/voyage-reducer'
 import VoyagePort from '../components/VoyagePort/voyage-port';
 import { calculateEtaToNextPort } from '../helpers/maps';
+import { formatTime } from '../helpers/time'
+
 interface VoyagePlannerParams{
     ports: Port[],
     voyage: {
@@ -34,6 +36,11 @@ function VoyagePlanner({ports, voyage}: VoyagePlannerParams){
         }
     }
 
+    const duration = useMemo(() => {
+        const durationInMs = voyage.duration * 60 * 60 * 1000
+        return formatTime(durationInMs)
+    }, [voyage.duration])
+
     return (
         <div className="voyage-planner-container">
             <div className="voyage-route-container">
@@ -43,6 +50,7 @@ function VoyagePlanner({ports, voyage}: VoyagePlannerParams){
                 </div>
                 <div className="voyage-listing">
                     <h2>Voyage</h2>
+                    <p>Total travel duration: {duration}</p>
                     <ol className="port-list">
                         {
                             voyage.ports.map((port: Port) => 
