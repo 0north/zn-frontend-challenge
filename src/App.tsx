@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import VoyagePlanner from './features/voyage-planner'
 import { useAppSelector, useAppDispatch } from './services/hooks'
-import { fetchPorts } from './services/ports-reducer';
+import { fetchPorts, addPorts } from './services/ports-reducer';
 
 function App() {
   const ports = useAppSelector(state => state.ports)
@@ -15,7 +15,7 @@ function App() {
       if (ports.offset !== offset) {
         setOffset(ports.offset)
         await fetchPorts(ports.offset)
-          .then(response => dispatch({ type: 'ADD_PORTS', payload: response }))
+          .then(response => dispatch(addPorts(response)))
           .catch(err => console.log(err))
       }
     }
