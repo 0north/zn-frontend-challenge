@@ -4,6 +4,7 @@ import "./voyage-planner.css"
 import { useAppDispatch } from '../services/hooks'
 import { Port } from '../services/ports-reducer';
 import Typeahead from '../components/typeahead';
+import { addPort } from '../services/voyage-reducer'
 
 interface VoyagePlannerParams{
     ports: Port[],
@@ -28,7 +29,7 @@ function VoyagePlanner({ports, voyage}: VoyagePlannerParams){
     const selectPort = (value: string) => {
         const port = ports.find((port: Port) => port.uncode === value)
         if (port) {
-            dispatch({type: 'ADD_PORT', payload: port})
+            dispatch(addPort(port, voyage.ports))
         }
     }
 
