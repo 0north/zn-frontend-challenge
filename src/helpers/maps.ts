@@ -1,3 +1,5 @@
+import { VESSEL_SPEED_KNPH } from '../services/voyage-reducer'
+import { Port } from '../services/ports-reducer'
 interface Position { 
     lat: number,
     lng: number
@@ -15,3 +17,27 @@ export function calculateDistance (mk1: Position, mk2: Position): number {
     const d = 2 * R * Math.asin(Math.sqrt(Math.sin(difflat/2)*Math.sin(difflat/2)+Math.cos(rlat1)*Math.cos(rlat2)*Math.sin(difflon/2)*Math.sin(difflon/2)));
     return d * MILES_TO_NAUTICAL_MILES;
 }
+
+export function calculateEtaToNextPort(ports: Port[], port: Port): Date {
+        const index = ports.indexOf(port)
+        if (index < 1) return new Date()
+        const start = new Date().getTime();
+        let totalDistance = 0
+        ports.forEach((port: Port, currentPortIndex: number) => {
+            if (currentPortIndex < index) {
+                const previous_position = {
+                    lat: ports[currentPortIndex].lat,
+                    lng: ports[currentPortIndex].lng
+                }
+                const next_position = {
+                    lat: ports[currentPortIndex + 1].lat,
+                    lng: ports[currentPortIndex + 1].lng
+                }
+                totalDistance += calculateDistance(previous_position, next_position)
+            }
+        })
+        const exactDuration = totalDistance / VESSEL_SPEED_KNPH;
+        const durationMiliseconds = exactDuration * 60 * 60 * 1000;
+        const end = new Date(start + durationMiliseconds);
+        return end
+    }
