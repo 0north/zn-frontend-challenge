@@ -3,9 +3,10 @@ import RouteMap from "./route-map"
 import "./voyage-planner.css"
 import { useAppDispatch } from '../services/hooks'
 import { Port } from '../services/ports-reducer';
-import Typeahead from '../components/typeahead';
+import Typeahead from '../components/Typeahead/typeahead';
 import { addPort } from '../services/voyage-reducer'
-
+import VoyagePort from '../components/VoyagePort/voyage-port';
+import { calculateEtaToNextPort } from '../helpers/maps';
 interface VoyagePlannerParams{
     ports: Port[],
     voyage: {
@@ -18,7 +19,7 @@ function VoyagePlanner({ports, voyage}: VoyagePlannerParams){
     const dispatch = useAppDispatch()
 
     const portOptions = useMemo(() => {
-        return ports.map(port => {
+        return ports.filter((port: Port) => !voyage.ports.includes(port)).map(port => {
             return {
                 value: port.uncode,
                 name: port.name
@@ -41,12 +42,14 @@ function VoyagePlanner({ports, voyage}: VoyagePlannerParams){
                     <Typeahead options={portOptions} selectOption={selectPort}/>
                 </div>
                 <div className="voyage-listing">
-                        <h2>Voyage</h2>
+                    <h2>Voyage</h2>
+                    <ol className="port-list">
                         {
                             voyage.ports.map((port: Port) => 
-                                <p key={port.uncode+port.name}>{port.name}</p>
+                                <VoyagePort port={port} eta={calculateEtaToNextPort(voyage.ports, port)}/>
                             )
                         }
+                    </ol>
                 </div>
             </div>
             <div className="voyage-map-container">
