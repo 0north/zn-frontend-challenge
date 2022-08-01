@@ -34,19 +34,21 @@ function RouteMap({ports}: RouteMapParams){
             })
     }, []);   
 
-    // useEffect(() => {
-    //     const map = theMap
-    //     ports.forEach((port: Port) => {
-    //         new google.maps.Marker({
-    //             position: {
-    //                 lat: +port.lat,
-    //                 lng: +port.lon
-    //             },
-    //             map,
-    //             title: port.name,
-    //         });
-    //     })
-    // }, [ports, theMap])
+    useEffect(() => {
+        ports.forEach((port: Port, index: number) => {
+            console.log(port, theMap)
+            new google.maps.Marker({
+                position: {
+                    lat: port.lat,
+                    lng: port.lng
+                },
+                map: theMap,
+                title: port.name,
+                label: `${index + 1}`
+            });
+            console.log(port, theMap)
+        })
+    }, [ports, theMap])
 
     return (
     <div id="map-container">        
