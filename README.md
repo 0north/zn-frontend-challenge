@@ -30,7 +30,7 @@ adding ports, calculate the total distance traveled and plot the chosen ports on
 
 1. Use this project as a template to create a new repo in your own Github account
 2. Create a new branch to do your work in
-3. After completing these steps to your satisification, create a pull request and invite the ZeroNorth reviewers to review)
+3. After completing these steps to your satisfication, create a pull request and invite the ZeroNorth reviewers to review)
 
 Specifically, we are looking for:
 
