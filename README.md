@@ -26,7 +26,7 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 
 This application is a mini-simulation of the functionality of the ZeroNorth solution.  
 The end-goal is to complete the UI that is used to generate a voyage by progressively
-adding ports, calculate the total distance travled and plot the chosen ports on a map.
+adding ports, calculate the total distance traveled and plot the chosen ports on a map.
 
 1. Use this project as a template to create a new repo in your own Github account
 2. Create a new branch to do your work in
